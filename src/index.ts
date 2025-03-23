@@ -23,3 +23,13 @@ const PORT = 3000;
 app.listen(PORT, () => {
   logger.info(`Server is running on Port: ${PORT}`);
 });
+
+process.on("uncaughtException", (err) => {
+  logger.error(`Uncaught exception: ${err.stack}`);
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  logger.error(`Unhandled rejection at : ${promise}, reason:${reason}`);
+  process.exit(1);
+});
